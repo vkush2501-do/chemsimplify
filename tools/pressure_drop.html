@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Pressure Drop — Darcy–Weisbach · ChemSimplify</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- Use the same stylesheet as Bernoulli -->
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* centering + small tool-specific tweaks */
+    .tools-wrap { max-width: 980px; margin: 36px auto; padding: 18px; }
+    .form-row { display:flex; gap:18px; flex-wrap:wrap; margin-bottom:12px; align-items:flex-start; }
+    .form-field { flex:1 1 240px; min-width:200px; }
+    .form-field label { display:block; margin-bottom:8px; font-weight:600; }
+    input[type="number"], input[type="text"], .input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid #d1d5db; background:#fff; color:#0b1220; box-sizing:border-box; }
+    .btn-row { margin-top:14px; display:flex; gap:12px; align-items:center; }
+    .btn { padding:10px 16px; border-radius:8px; border:none; cursor:pointer; font-weight:600; }
+    .btn-primary { background:#0ea5a4; color:#fff; }
+    .btn-ghost { background:#fff; color:#0b1220; border:2px solid #0b1220; }
+    .result { margin-top:18px; padding:14px; background:#ffffff; border-radius:8px; box-shadow:0 6px 18px rgba(6,13,20,0.06); }
+    .small-link { display:inline-block; margin-top:12px; color:#0ea5a4; text-decoration:none; font-weight:600; }
+    footer.site-footer { margin-top:36px; padding:18px 0; text-align:center; color:#475569; }
+  </style>
+</head>
+<body>
+  <!-- header (keeps your site's header structure) -->
+  <header class="navbar" style="background:transparent; padding:18px 0;">
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="/images/logo-icon.png" alt="ChemSimplify logo" style="height:40px;">
+        <a href="/" style="font-weight:700; font-size:20px; color:var(--text-color, #0b1220); text-decoration:none;">ChemSimplify</a>
+      </div>
+      <nav style="display:flex; gap:18px;">
+        <a href="/" style="text-decoration:none; color:inherit">Home</a>
+        <a href="/tools" style="text-decoration:none; color:inherit">Tools</a>
+        <a href="/blog" style="text-decoration:none; color:inherit">Blog</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- main centered content -->
+  <main class="tools-wrap">
+    <h1 style="margin:0 0 10px 0; font-size:40px;">Pressure Drop — Darcy–Weisbach</h1>
+
+    <!-- Back links -->
+    <a href="/" class="small-link">← Back to Home</a>
+    <a href="/tools" class="small-link" style="margin-left:14px">← Back to tools</a>
+
+    <p style="margin-top:18px; color:#0b1220;">
+      ΔP = f · (L/D) · (ρ v² / 2)
+    </p>
+
+    <form id="dpForm" onsubmit="return false;" style="margin-top:18px;">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="L">Pipe length — L (m)</label>
+          <input id="L" class="input" type="number" step="any" placeholder="e.g., 50">
+        </div>
+
+        <div class="form-field">
+          <label for="D">Diameter — D (m)</label>
+          <input id="D" class="input" type="number" step="any" placeholder="e.g., 0.05">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="rho">Density — ρ (kg/m³)</label>
+          <input id="rho" class="input" type="number" step="any" placeholder="e.g., 997">
+        </div>
+
+        <div class="form-field">
+          <label for="v">Velocity — v (m/s)</label>
+          <input id="v" class="input" type="number" step="any" placeholder="e.g., 1.25">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="f">Friction factor — f (leave empty to compute)</label>
+          <input id="f" class="input" type="number" step="any" placeholder="e.g., 0.02">
+        </div>
+
+        <div class="form-field">
+          <label for="eps">Pipe absolute roughness — ε (m, optional)</label>
+          <input id="eps" class="input" type="number" step="any" placeholder="e.g., 0.000045">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field" style="flex: 1 1 100%;">
+          <label for="mu">Dynamic viscosity — μ (Pa·s) — required if friction not provided</label>
+          <input id="mu" class="input" type="number" step="any" placeholder="e.g., 0.001003">
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button id="calcDP" type="button" class="btn btn-primary">Calculate Pressure Drop</button>
+        <button id="clearDP" type="button" class="btn btn-ghost">Clear</button>
+        <div id="dpOut" style="margin-left:18px;"></div>
+      </div>
+    </form>
+
+    <div id="result" class="result" style="display:none"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2025 ChemSimplify</div>
+  </footer>
+
+<script>
+  const el = id => document.getElementById(id);
+
+  // Swamee–Jain approximation for turbulent friction factor
+  function swameeJain(eps, D, Re) {
+    const term = (eps / (3.7 * D)) + (5.74 / Math.pow(Re, 0.9));
+    return 0.25 / Math.pow(Math.log10(term), 2);
+  }
+
+  // Calculate button handler
+  el('calcDP').addEventListener('click', () => {
+    const L = parseFloat(el('L').value);
+    const D = parseFloat(el('D').value);
+    const rho = parseFloat(el('rho').value);
+    const v = parseFloat(el('v').value);
+    let f = parseFloat(el('f').value);
+    const eps = parseFloat(el('eps').value);
+    const mu = parseFloat(el('mu').value);
+
+    // basic validation
+    if (![L,D,rho,v].every(x => Number.isFinite(x) && x > 0)) {
+      alert('Enter positive numeric values for L, D, ρ and v.');
+      return;
+    }
+
+    // If friction factor not provided, attempt to compute with Swamee-Jain (needs μ and ε)
+    if (!Number.isFinite(f)) {
+      if (!Number.isFinite(mu) || !Number.isFinite(eps)) {
+        alert('To auto-compute f, provide dynamic viscosity μ and roughness ε, or enter f directly.');
+        return;
+      }
+      const Re = (rho * v * D) / mu;
+      f = swameeJain(eps, D, Re);
+      if (!Number.isFinite(f) || f <= 0) {
+        alert('Friction factor calculation failed. Check inputs.');
+        return;
+      }
+      const dp = f * (L / D) * (rho * v * v) / 2;
+      el('dpOut').innerHTML = `<strong>ΔP = ${dp.toFixed(2)} Pa</strong> <div style="color:#475569; margin-top:6px;">f=${f.toExponential(3)}, Re=${Re.toFixed(0)}</div>`;
+      return;
+    }
+
+    // If f provided directly
+    const dp = f * (L / D) * (rho * v * v) / 2;
+    el('dpOut').innerHTML = `<strong>ΔP = ${dp.toFixed(2)} Pa</strong> <div style="color:#475569; margin-top:6px;">f=${f}</div>`;
+  });
+
+  // Clear button handler
+  el('clearDP').addEventListener('click', () => {
+    ['L','D','rho','v','f','eps','mu'].forEach(id => el(id).value = '');
+    el('dpOut').innerHTML = '';
+    el('result').style.display = 'none';
+  });
+</script>
+</body>
+</html>

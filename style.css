@@ -1,0 +1,60 @@
+:root{
+  --primary: #0E7490;
+  --secondary: #F1F5F9;
+  --accent:  #FACC15;
+  --text:    #0b2b33;
+  --white:   #ffffff;
+  --maxw: 1200px;
+}
+
+*{box-sizing:border-box}
+body{margin:0;font-family:'Inter',sans-serif;background:var(--secondary);color:var(--text);-webkit-font-smoothing:antialiased;}
+
+.maxw{max-width:var(--maxw);margin:0 auto;padding:0 18px}
+
+/* NAVBAR */
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--white);box-shadow:0 2px 6px rgba(0,0,0,0.06);position:sticky;top:0;z-index:40}
+.brand{display:flex;align-items:center;gap:12px}
+.logo-icon{width:44px;height:44px;object-fit:contain}
+.brand-title{font-family:'Poppins',sans-serif;font-weight:700;color:var(--primary);text-decoration:none;font-size:20px}
+
+/* NAV LINKS */
+.nav-links{display:flex;gap:18px;align-items:center}
+.nav-links a{color:var(--text);text-decoration:none;font-weight:600;padding:6px 8px;border-radius:6px}
+.nav-links a:hover{background:#f3f6f7}
+.nav-links a.cta{background:var(--accent);padding:8px 12px;border-radius:8px;color:#000}
+
+/* burger for small screens */
+.burger{display:none;background:transparent;border:0;font-size:20px}
+
+/* HERO */
+.hero-section{position:relative;margin:28px auto}
+.hero-img{width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 8px 30px rgba(6,13,20,0.15)}
+.hero-overlay{position:absolute;left:36px;bottom:36px;color:var(--white);text-shadow:0 6px 18px rgba(0,0,0,0.6)}
+.hero-overlay h1{font-family:'Playfair Display',serif;font-size:44px;margin:0}
+.hero-overlay .tag{font-family:'Poppins',sans-serif;margin-top:6px;font-weight:600}
+
+/* INTRO + CARDS */
+.intro{padding:30px 0}
+.intro h2{font-family:'Poppins',sans-serif;color:var(--primary);margin-bottom:6px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+.card{background:var(--white);border-radius:10px;padding:14px;box-shadow:0 6px 18px rgba(6,13,20,0.06);text-align:center}
+.card img{width:100%;height:auto;border-radius:8px}
+.card h3{margin:12px 0 6px;font-family:'Poppins',sans-serif}
+.card p{color:#475569;font-size:14px}
+.btn{display:inline-block;margin-top:10px;padding:8px 14px;background:var(--primary);color:#fff;border-radius:8px;text-decoration:none;font-weight:600}
+
+/* FOOTER */
+.footer{padding:18px;background:transparent;color:#6b7280;text-align:center;margin-top:28px}
+
+/* Responsive */
+@media(max-width:900px){
+  .cards{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .cards{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .burger{display:block}
+  .hero-overlay{left:16px;bottom:16px}
+  .hero-overlay h1{font-size:28px}
+}

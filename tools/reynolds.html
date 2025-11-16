@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Reynolds Number · ChemSimplify</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- keep using the site's main stylesheet -->
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* centered layout + small tool-specific tweaks */
+    .tools-wrap { max-width: 980px; margin: 36px auto; padding: 18px; }
+    .form-row { display:flex; gap:18px; flex-wrap:wrap; margin-bottom:12px; align-items:flex-start; }
+    .form-field { flex:1 1 240px; min-width:200px; }
+    .form-field label { display:block; margin-bottom:8px; font-weight:600; color:var(--text-color,#0b1220); }
+    .input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid #d1d5db; background:#fff; color:#0b1220; box-sizing:border-box; }
+    .btn-row { margin-top:14px; display:flex; gap:12px; align-items:center; }
+    .btn { padding:10px 16px; border-radius:8px; border:none; cursor:pointer; font-weight:600; }
+    .btn-primary { background:#0ea5a4; color:#fff; }
+    .btn-ghost { background:#fff; color:#0b1220; border:2px solid #0b1220; }
+    .result { margin-top:18px; padding:14px; background:#ffffff; border-radius:8px; box-shadow:0 6px 18px rgba(6,13,20,0.06); }
+    .small-link { display:inline-block; margin-top:12px; color:#0ea5a4; text-decoration:none; font-weight:600; }
+    footer.site-footer { margin-top:36px; padding:18px 0; text-align:center; color:#475569; }
+  </style>
+</head>
+<body>
+  <!-- header (keeps your site's header structure) -->
+  <header class="navbar" style="background:transparent; padding:18px 0;">
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="/images/logo-icon.png" alt="ChemSimplify logo" style="height:40px;">
+        <a href="/" style="font-weight:700; font-size:20px; color:var(--text-color, #0b1220); text-decoration:none;">ChemSimplify</a>
+      </div>
+      <nav style="display:flex; gap:18px;">
+        <a href="/" style="text-decoration:none; color:inherit">Home</a>
+        <a href="/tools" style="text-decoration:none; color:inherit">Tools</a>
+        <a href="/blog" style="text-decoration:none; color:inherit">Blog</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="tools-wrap">
+    <h1 style="margin:0 0 10px 0; font-size:40px;">Reynolds Number Calculator</h1>
+
+    <!-- Back links -->
+    <a href="/" class="small-link">← Back to Home</a>
+    <a href="/tools" class="small-link" style="margin-left:14px">← Back to tools</a>
+
+    <p style="margin-top:18px; color:#0b1220;">
+      Re = ρ · v · D / μ (ρ: density, v: velocity, D: diameter, μ: dynamic viscosity)
+    </p>
+
+    <form id="reForm" onsubmit="return false;" style="margin-top:18px;">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="rho">Density — ρ (kg/m³)</label>
+          <input id="rho" class="input" type="number" step="any" placeholder="e.g., 997">
+        </div>
+
+        <div class="form-field">
+          <label for="v">Velocity — v (m/s)</label>
+          <input id="v" class="input" type="number" step="any" placeholder="e.g., 1.25">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="D">Pipe diameter — D (m)</label>
+          <input id="D" class="input" type="number" step="any" placeholder="e.g., 0.05">
+        </div>
+
+        <div class="form-field">
+          <label for="mu">Dynamic viscosity — μ (Pa·s)</label>
+          <input id="mu" class="input" type="number" step="any" placeholder="e.g., 0.001003">
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button id="calcRe" type="button" class="btn btn-primary">Calculate Reynolds</button>
+        <button id="clearRe" type="button" class="btn btn-ghost">Clear</button>
+        <div id="reOut" style="margin-left:18px;"></div>
+      </div>
+    </form>
+
+    <div id="result" class="result" style="display:none"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2025 ChemSimplify</div>
+  </footer>
+
+<script>
+  const get = id => document.getElementById(id);
+
+  // Calculate Reynolds handler
+  get('calcRe').addEventListener('click', ()=> {
+    const rho = parseFloat(get('rho').value);
+    const v = parseFloat(get('v').value);
+    const D = parseFloat(get('D').value);
+    const mu = parseFloat(get('mu').value);
+
+    if (![rho, v, D, mu].every(x => Number.isFinite(x) && x > 0)) {
+      alert('Please enter positive numeric values for all fields.');
+      return;
+    }
+
+    const Re = (rho * v * D) / mu;
+    const regime = Re < 2000 ? 'Laminar' : Re < 4000 ? 'Transitional' : 'Turbulent';
+    get('reOut').innerHTML = `<strong>Re = ${Re.toFixed(2)}</strong> — ${regime}`;
+  });
+
+  // Clear handler
+  get('clearRe').addEventListener('click', ()=> {
+    ['rho','v','D','mu'].forEach(id => get(id).value = '');
+    get('reOut').innerHTML = '';
+    get('result').style.display = 'none';
+  });
+</script>
+</body>
+</html>

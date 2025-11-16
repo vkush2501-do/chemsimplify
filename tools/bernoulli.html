@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bernoulli Calculator — ChemSimplify</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* small tool-specific tweaks */
+    .tool-wrap { max-width:760px; margin:30px auto; padding:18px; }
+    .form-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
+    .form-row label { display:block; font-weight:600; margin-bottom:6px; }
+    input[type="number"], select { padding:8px; border-radius:6px; border:1px solid #d1d5db; width:100%; }
+    .col { flex:1; min-width:160px; }
+    .result { background:#fff; padding:12px; border-radius:8px; box-shadow:0 6px 18px rgba(6,13,20,0.06); margin-top:12px; }
+    .muted { color:#475569; font-size:14px; }
+    footer.site-footer { margin-top:36px; padding:18px 0; text-align:center; color:#475569; } /* centered footer */
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="brand">
+      <img src="/images/logo-icon.png" alt="ChemSimplify logo" class="logo-icon">
+      <a href="/index.html" class="brand-title">ChemSimplify</a>
+    </div>
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/blog.html">Blog</a>
+    </nav>
+    <button class="burger" aria-label="menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+  </header>
+
+  <main class="tool-wrap">
+    <h1>Bernoulli Calculator</h1>
+
+    <!-- Back to Home Button -->
+    <a href="/" 
+       style="display:inline-block;
+              margin-top:10px;
+              margin-bottom:20px;
+              color:#0ea5a4;
+              font-weight:600;
+              text-decoration:none;">
+      ← Back to Home
+    </a>
+
+    <p class="muted">We use the Bernoulli equation (steady, incompressible, along a streamline): 
+      <strong>P/ρg + V²/2g + z = constant</strong>. 
+      This tool computes <strong>P₂</strong> given P₁, V₁, z₁, V₂, z₂ and density ρ. 
+      g is assumed 9.81 m/s².
+    </p>
+
+    <form id="bernForm" onsubmit="return false;">
+      <div class="form-row">
+        <div class="col">
+          <label for="P1">P₁ (Pa)</label>
+          <input id="P1" type="number" step="any" placeholder="e.g. 101325" value="101325">
+        </div>
+        <div class="col">
+          <label for="rho">Density ρ (kg/m³)</label>
+          <input id="rho" type="number" step="any" placeholder="e.g. 1000" value="1000">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col">
+          <label for="V1">V₁ (m/s)</label>
+          <input id="V1" type="number" step="any" placeholder="e.g. 2.0" value="2">
+        </div>
+        <div class="col">
+          <label for="z1">z₁ (m)</label>
+          <input id="z1" type="number" step="any" placeholder="e.g. 10" value="10">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col">
+          <label for="V2">V₂ (m/s)</label>
+          <input id="V2" type="number" step="any" placeholder="e.g. 3.0" value="3">
+        </div>
+        <div class="col">
+          <label for="z2">z₂ (m)</label>
+          <input id="z2" type="number" step="any" placeholder="e.g. 5" value="5">
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <button type="button" class="btn" onclick="computeP2()">Calculate P₂</button>
+        <button type="button" class="btn" style="background:#e2e8f0;color:#000;margin-left:8px" onclick="clearResult()">Clear</button>
+      </div>
+    </form>
+
+    <div id="result" class="result" style="display:none"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© 2025 ChemSimplify</div>
+  </footer>
+
+  <script>
+    /*
+      Bernoulli formula used (in SI units):
+      P1/(ρg) + V1²/(2g) + z1 = P2/(ρg) + V2²/(2g) + z2
+      => P2 = P1 + ρg(z1 - z2) + 0.5ρ(V1² - V2²)
+    */
+    function numberOrZero(x){ let v=parseFloat(x); return isFinite(v)?v:0; }
+
+    function computeP2(){
+      const P1 = numberOrZero(document.getElementById('P1').value);
+      const rho = numberOrZero(document.getElementById('rho').value) || 1000;
+      const V1 = numberOrZero(document.getElementById('V1').value);
+      const z1 = numberOrZero(document.getElementById('z1').value);
+      const V2 = numberOrZero(document.getElementById('V2').value);
+      const z2 = numberOrZero(document.getElementById('z2').value);
+      const g = 9.81;
+
+      if (rho <= 0){ alert('Density must be > 0'); return; }
+
+      const hydro = rho * g * (z1 - z2);
+      const kin = 0.5 * rho * (V1*V1 - V2*V2);
+      const P2 = P1 + hydro + kin;
+
+      function fmt(x, dp=3){
+        if (!isFinite(x)) return 'NaN';
+        return (Math.abs(x) >= 1000) ? x.toFixed(2) : x.toFixed(dp);
+      }
+
+      const out = `
+        <strong>Results (SI units)</strong>
+        <p>P₂ = <strong>${fmt(P2,3)} Pa</strong></p>
+        <p class="muted">Breakdown: P₁ = ${fmt(P1)} Pa; ρg(z₁−z₂) = ${fmt(hydro)} Pa; 
+        ½ρ(V₁²−V₂²) = ${fmt(kin)} Pa; ρ = ${rho} kg/m³, g = ${g} m/s².</p>
+        <p class="muted">Equation used: P₂ = P₁ + ρg(z₁−z₂) + ½ρ(V₁²−V₂²)</p>
+      `;
+      const r = document.getElementById('result');
+      r.innerHTML = out;
+      r.style.display = 'block';
+      r.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+
+    function clearResult(){
+      document.getElementById('result').style.display='none';
+    }
+  </script>
+</body>
+</html>

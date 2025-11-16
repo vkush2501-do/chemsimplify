@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ChemSimplify</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Favicon (project root) -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="brand">
+      <img src="/images/logo-icon.png" alt="ChemSimplify logo" class="logo-icon">
+      <a href="/" class="brand-title">ChemSimplify</a>
+    </div>
+
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/tools.html">Tools</a>
+      <a href="/blog.html">Blog</a>
+      <a href="/about.html" class="cta">Contact</a>
+    </nav>
+    <button class="burger" aria-label="menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+  </header>
+
+  <!-- HERO -->
+  <main class="hero-section">
+    <picture>
+      <source srcset="/images/banner-hero.png" type="image/png">
+      <img src="/images/banner-hero.png" alt="ChemSimplify — library of chemical engineering" class="hero-img" width="1600" height="900">
+    </picture>
+
+    <div class="hero-overlay">
+      <h1>CHEMSIMPLIFY</h1>
+      <p class="tag">Simplifying Chemical Engg</p>
+    </div>
+  </main>
+
+  <!-- INTRO -->
+  <section class="intro maxw">
+    <h2>Tools, notes & simulations for Chemical Engineering students</h2>
+    <p>Start with ready calculators for Fluid Mechanics and add more tools as you learn. Click a tool to open it.</p>
+
+    <div class="cards">
+      <article class="card">
+        <img src="/images/beaker-thumb.png" alt="Bernoulli thumbnail" width="400" height="400">
+        <h3>Bernoulli Calculator</h3>
+        <p>Compute unknown pressure using Bernoulli's equation (including elevation and velocity terms).</p>
+        <a class="btn" href="/tools/bernoulli.html">Open Tool</a>
+      </article>
+
+      <article class="card">
+        <img src="/images/beaker-thumb.png" alt="Reynolds thumbnail" width="400" height="400">
+        <h3>Reynolds Number</h3>
+        <p>Calculate Reynolds number (ρVD/μ) to determine laminar/turbulent flow.</p>
+        <a class="btn" href="/tools/reynolds.html">Open Tool</a>
+      </article>
+
+      <article class="card">
+        <img src="/images/beaker-thumb.png" alt="Drag thumbnail" width="400" height="400">
+        <h3>Drag Coefficient</h3>
+        <p>Estimate drag coefficient from shape and Reynolds number (basic references).</p>
+        <a class="btn" href="/tools/pressure_drop.html">Open Tool</a>
+      </article>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="maxw">
+      <p>© 2025 ChemSimplify — Simplifying Chemical Engineering</p>
+    </div>
+  </footer>
+
+</body>
+</html>
