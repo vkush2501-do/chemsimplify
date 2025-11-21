@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reynolds Number in Flow Analysis | ChemSimplify</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header>
+    <nav class="navbar">
+        <div class="logo">ChemSimplify</div>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../tools.html">Tools</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="blog-post">
+    <h1>Reynolds Number in Flow Analysis</h1>
+
+    <p>
+        The <strong>Reynolds Number (Re)</strong> is one of the most important dimensionless numbers in 
+        fluid mechanics and chemical engineering. It helps determine whether a fluid flow is 
+        <strong>laminar</strong>, <strong>transitional</strong>, or <strong>turbulent</strong>.
+    </p>
+
+    <h2>What is Reynolds Number?</h2>
+    <p>
+        Reynolds number represents the ratio of:
+    </p>
+
+    <ul>
+        <li><strong>Inertial forces (tendency to keep moving)</strong></li>
+        <li><strong>Viscous forces (resistance to motion)</strong></li>
+    </ul>
+
+    <p>
+        When inertial forces dominate, flow becomes chaotic → <strong>turbulent</strong>.  
+        When viscous forces dominate, flow is smooth → <strong>laminar</strong>.
+    </p>
+
+    <h2>Mathematical Formula</h2>
+
+    <pre style="background:#111; padding:12px; border-radius:8px; color:#0f0;">
+Re = (ρ × V × D) / μ
+    </pre>
+
+    <p>
+        Where:
+    </p>
+
+    <ul>
+        <li><strong>ρ</strong> = Density of fluid (kg/m³)</li>
+        <li><strong>V</strong> = Velocity (m/s)</li>
+        <li><strong>D</strong> = Diameter / characteristic length (m)</li>
+        <li><strong>μ</strong> = Dynamic viscosity (Pa·s)</li>
+    </ul>
+
+    <h2>Flow Regimes Based on Reynolds Number</h2>
+
+    <table style="width:100%; margin:20px 0; text-align:left;">
+        <tr>
+            <th>Reynolds Number</th>
+            <th>Flow Type</th>
+        </tr>
+        <tr>
+            <td>Re &lt; 2100</td>
+            <td>Laminar Flow</td>
+        </tr>
+        <tr>
+            <td>2100 ≤ Re ≤ 4000</td>
+            <td>Transitional Flow</td>
+        </tr>
+        <tr>
+            <td>Re &gt; 4000</td>
+            <td>Turbulent Flow</td>
+        </tr>
+    </table>
+
+    <h2>Physical Meaning</h2>
+    <p>
+        ✔ Low Reynolds number → Flow dominated by viscosity → smooth, orderly layers  
+        ✔ High Reynolds number → Flow dominated by inertia → swirling, chaotic motion  
+    </p>
+
+    <h2>Example Calculation</h2>
+
+    <p><strong>Problem:</strong> Water flows through a 4 cm diameter pipe at 1.2 m/s.  
+    Density = 1000 kg/m³, viscosity = 0.001 Pa·s. Find Re.</p>
+
+    <pre style="background:#111; padding:12px; border-radius:8px; color:#0f0;">
+Re = (1000 × 1.2 × 0.04) / 0.001
+Re = 48,000
+    </pre>
+
+    <p>
+        Since Re = 48,000 → <strong>Turbulent Flow</strong>.
+    </p>
+
+    <h2>Importance in Chemical Engineering</h2>
+
+    <ul>
+        <li>Determines pressure drop in pipelines</li>
+        <li>Helps in designing heat exchangers</li>
+        <li>Used in scale-up of chemical reactors</li>
+        <li>Important for mixing, agitation, and mass transfer</li>
+        <li>Decides whether laminar or turbulent flow correlations are used</li>
+    </ul>
+
+    <h2>Reynolds Number in Open Channels, Plates & Reactors</h2>
+
+    <p>
+        Reynolds number changes based on geometry:
+    </p>
+
+    <ul>
+        <li><strong>Pipes:</strong> D = pipe diameter</li>
+        <li><strong>Plates:</strong> D = distance from leading edge</li>
+        <li><strong>Reactors:</strong> D = agitator diameter / tank dimension</li>
+        <li><strong>Heat exchangers:</strong> D = hydraulic diameter</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>
+        Reynolds number is essential for analyzing fluid flow behavior, selecting pump capacity, 
+        sizing reactors, estimating friction factor, and understanding flow regimes.  
+        It forms the foundation for fluid mechanics in chemical engineering.
+    </p>
+
+</section>
+
+<footer>
+    <p>© 2025 ChemSimplify.in</p>
+</footer>
+
+</body>
+</html>
