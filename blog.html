@@ -1,50 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChemSimplify | Blogs</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ChemSimplify | Blog</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<!-- NAVBAR -->
-<header>
-    <nav class="navbar">
-        <div class="logo">ChemSimplify</div>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="tools.html">Tools</a></li>
-            <li><a class="active" href="blog.html">Blog</a></li>
-            <li><a href="about.html">About</a></li>
-        </ul>
+  <!-- NAVBAR with icons -->
+  <header>
+    <nav class="cs-navbar">
+      <div class="cs-logo">ChemSimplify</div>
+      <ul class="cs-navlist">
+        <li><a href="index.html" class="cs-navlink">
+          <!-- Home icon (SVG) -->
+          <span class="cs-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 11.5L12 4l9 7.5"></path>
+              <path d="M5 21h14a1 1 0 0 0 1-1V11.5"></path>
+              <path d="M9 21V12h6v9"></path>
+            </svg>
+          </span>
+          <span class="cs-link-text">Home</span>
+        </a></li>
+
+        <li><a href="tools.html" class="cs-navlink">
+          <!-- Tools icon -->
+          <span class="cs-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.7 6.3l3 3a2 2 0 0 1 0 2.8l-6 6a2 2 0 0 1-2.8 0l-3-3"></path>
+              <path d="M7 7l7 7"></path>
+            </svg>
+          </span>
+          <span class="cs-link-text">Tools</span>
+        </a></li>
+
+        <li><a href="blog.html" class="cs-navlink cs-active">
+          <!-- Blog icon -->
+          <span class="cs-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="14" rx="2"></rect>
+              <path d="M8 2v4"></path>
+              <path d="M16 2v4"></path>
+            </svg>
+          </span>
+          <span class="cs-link-text">Blog</span>
+        </a></li>
+      </ul>
     </nav>
-</header>
+  </header>
 
-<section class="blog-container">
-    <h1 class="page-title">Latest Articles</h1>
+  <!-- MAIN: centered container -->
+  <main class="cs-main">
+    <section class="blog-hero">
+      <h1>Latest Articles</h1>
+      <p class="sub">Short, clear articles and tools for chemical engineering students.</p>
+    </section>
 
-    <div class="blog-grid">
-
-        <a href="blogs/bernoulli.html" class="blog-card">
-            <img src="images/beaker-thumb.png" alt="Bernoulli Equation">
+    <section class="blog-grid">
+      <!-- card 1 -->
+      <article class="card">
+        <a href="blogs/bernoulli.html" class="card-link">
+          <img src="images/beaker-thumb.png" alt="Bernoulli" class="card-img" />
+          <div class="card-body">
             <h2>Understanding the Bernoulli Equation</h2>
-            <p>A simple explanation of energy balance in fluid flow with real-world examples.</p>
+            <p class="excerpt">A simple explanation of energy balance in fluid flow with real-world examples.</p>
+          </div>
         </a>
+      </article>
 
-        <a href="blogs/reynolds-number.html" class="blog-card">
-            <img src="images/beaker-thumb.png" alt="Reynolds Number">
+      <!-- card 2 -->
+      <article class="card">
+        <a href="blogs/reynolds-number.html" class="card-link">
+          <img src="images/beaker-thumb.png" alt="Reynolds Number" class="card-img" />
+          <div class="card-body">
             <h2>Reynolds Number in Flow Analysis</h2>
-            <p>What Re means, how to calculate it, and why it matters in Chemical Engineering.</p>
+            <p class="excerpt">What Re means, how to calculate it, and why it matters in Chemical Engineering.</p>
+          </div>
         </a>
+      </article>
+    </section>
+  </main>
 
-    </div>
-</section>
-
-<footer>
-    <p>© 2025 ChemSimplify.in | All Rights Reserved</p>
-</footer>
+  <footer class="cs-footer">
+    <p>© 2025 ChemSimplify.in</p>
+  </footer>
 
 </body>
 </html>
