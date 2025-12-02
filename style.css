@@ -47,6 +47,9 @@ body {
   height: auto;
 }
 .cs-logo {
+  display: flex;         /* NEW: aligns items horizontally */
+  align-items: center;   /* NEW: centers text vertically with logo */
+  gap: 10px;     
   font-size: 22px;
   font-family: 'Poppins', sans-serif;
   color: var(--primary);
@@ -290,6 +293,7 @@ body {
   .hero-overlay h1 { font-size: 28px; }
   .post img { max-width: 90%; }
 }
+
 
 
 
