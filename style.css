@@ -34,7 +34,7 @@ body {
 =========================== */
 .cs-navbar {
   display: flex;
-  align-items: center;
+  align-items: left;
   justify-content: space-between;
   padding: 14px 22px;
   background: var(--white);
@@ -330,4 +330,5 @@ body {
   .site-logo, .cs-logo img { max-width: 110px; width: clamp(48px, 18vw, 110px); }
   .hero-section { margin-top: 6px; }
 }
+
 
