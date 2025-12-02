@@ -36,7 +36,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 22px;
+  padding: 14px 22px;
   background: var(--white);
   box-shadow: 0 2px 6px rgba(0,0,0,0.06);
   top: 0;
@@ -44,10 +44,10 @@ body {
 }
 
 .cs-logo {
-  font-size: 10px;
+  font-size: 6px;
   font-family: 'Poppins', sans-serif;
   color: var(--primary);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .cs-navlist {
