@@ -285,3 +285,47 @@ body {
   .hero-overlay h1 { font-size: 28px; }
   .post img { max-width: 90%; }
 }
+/* ===== Header/logo: restrict size and reduce white band ===== */
+.navbar {
+  padding: 10px 22px;        /* reduce header height */
+  align-items: center;
+  gap: 12px;
+  /* keep position: sticky if you want header to remain visible while scrolling */
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Only affect the header logo (won't affect .hero-img or .card img) */
+.brand img.logo,
+.brand > img {
+  max-width: 140px;                   /* tune: 120-160px if needed */
+  width: clamp(64px, 9vw, 140px);     /* responsive */
+  height: auto;
+  display: inline-block;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+/* Align brand text with logo */
+.brand .brand-title {
+  display: inline-block;
+  margin-left: 10px;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+/* Reduce gap above hero so header white band is smaller */
+.hero-section {
+  margin-top: 8px; /* was 28px — reduces white space */
+}
+
+/* Mobile tweak */
+@media (max-width: 640px) {
+  .brand img.logo { max-width: 110px; width: clamp(48px, 18vw, 110px); }
+  .hero-section { margin-top: 6px; }
+}
+
