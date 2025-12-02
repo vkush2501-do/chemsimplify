@@ -17,20 +17,21 @@
 <body>
 
   <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="brand">
-      <img src="/images/logo-icon.png" alt="ChemSimplify logo" class="logo-icon">
-      <a href="/" class="brand-title">ChemSimplify</a>
-    </div>
+ <header class="cs-navbar">
+  <div class="cs-logo">
+    <img src="/images/logo-icon.png" alt="ChemSimplify logo" class="site-logo">
+    <a href="/" class="cs-logo-title">ChemSimplify</a>
+  </div>
 
-    <nav class="nav-links">
-      <a href="/index.html">Home</a>
-      <a href="/tools.html">Tools</a>
-      <a href="/blog.html">Blog</a>
-      <a href="/about.html" class="cta">Contact</a>
-    </nav>
-    <button class="burger" aria-label="menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
-  </header>
+  <nav class="cs-navlist">
+    <a href="/index.html" class="cs-navlink">Home</a>
+    <a href="/tools.html" class="cs-navlink">Tools</a>
+    <a href="/blog.html" class="cs-navlink">Blog</a>
+    <a href="/about.html" class="cs-navlink cs-active">Contact</a>
+  </nav>
+
+  <button class="burger" aria-label="menu" onclick="document.querySelector('.cs-navlist').classList.toggle('open')"></button>
+</header>
 
   <!-- HERO -->
   <main class="hero-section">
@@ -82,3 +83,4 @@
 
 </body>
 </html>
+
